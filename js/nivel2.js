@@ -342,8 +342,6 @@
 
 
 
-
-
 //////////////////////////////////////////////////////////////////////////////
 // ¡Felicidades! ¡Has terminado el Nivel 2 de JavaScript Básico!            //
 // Levántate, estira las piernas y celebra tu logro.                        //
