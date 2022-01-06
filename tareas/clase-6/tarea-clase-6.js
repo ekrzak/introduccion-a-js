@@ -43,36 +43,32 @@ function crearBotonDeCalculo() {
     $listaIntegrantes.appendChild(botonLimpiar);
 }
 
-function obtenerElMenor(listaDeNodos) {
-    let esElMenor = listaDeNodos[0].value;
-    for (let i = 1; i < listaDeNodos.length; i++) {
-        if (esElMenor < listaDeNodos[i].value) {
-            continue;
-        } else {
-            esElMenor = listaDeNodos[i].value;
+function obtenerElMenor(arreglo) {
+    let esElMenor = arreglo[0];
+    for (let i = 0; i < arreglo.length; i++) {
+        if (esElMenor > arreglo[i]) {
+            esElMenor = arreglo[i];
         }
     }
-    return Number(esElMenor);
+    return esElMenor;
 }
 
-function obtenerElMayor(listaDeNodos) {
-    let esElMayor = listaDeNodos[0].value;
-    for (let i = 1; i < listaDeNodos.length; i++) {
-        if (esElMayor > listaDeNodos[i].value) {
-            continue;
-        } else {
-            esElMayor = listaDeNodos[i].value;
+function obtenerElMayor(arreglo) {
+    let esElMayor = arreglo[0];
+    for (let i = 0; i < arreglo.length; i++) {
+        if (esElMayor < arreglo[i]) {
+            esElMayor = arreglo[i];
         }
-    }
-    return Number(esElMayor);
+    }    
+    return esElMayor;
 }
 
-function obtenerElPromedio(listaDeNodos) {
+function obtenerElPromedio(arreglo) {
     let suma = 0;
-    for (let i = 0; i < listaDeNodos.length; i++) {
-        suma += Number(listaDeNodos[i].value);
+    for (let i = 0; i < arreglo.length; i++) {
+        suma += arreglo[i];
     }
-    return (suma / listaDeNodos.length);
+    return (suma / arreglo.length);
 }
 
 document.querySelector('#ingresar').onclick = () => {
@@ -84,7 +80,22 @@ document.querySelector('#ingresar').onclick = () => {
     crearBotonDeCalculo();
     // Ejecuta las acciones sobre el boton de calcular
     document.querySelector('#boton-calcular').onclick = () => {
-        const listaDeEdades = document.querySelectorAll('.edades-personas');        
+        // Pasa a array los values de la NodeList de los inputs
+        const listaDeEdadesListaDeNodos = document.querySelectorAll('.edades-personas');
+        const listaDeEdades = [];
+        console.log(listaDeEdadesListaDeNodos);
+        for (i = 0; i < listaDeEdadesListaDeNodos.length; i++) {
+            if (Number(listaDeEdadesListaDeNodos[i].value) >= 0) {
+                listaDeEdades.push(Number(listaDeEdadesListaDeNodos[i].value));
+            } else {
+                listaDeEdadesListaDeNodos[i].disabled = true;
+                listaDeEdadesListaDeNodos[i].style.backgroundColor = 'pink';
+            }        
+        }
+        if (listaDeEdades.length !== listaDeEdadesListaDeNodos.length) { // Manda mensaje de alerta
+            alert('Ingresaste números negativos; no serán tenido en cuenta para los cálculos');
+        }         
+        // Expresa los resultados
         document.querySelector('#mayor-edad').textContent = `La persona de mayor edad tiene ${obtenerElMayor(listaDeEdades)} años.`;
         document.querySelector('#menor-edad').textContent = `La persona de menor edad tiene ${obtenerElMenor(listaDeEdades)} años.`;
         document.querySelector('#promedio-edad').textContent = `El promedio de edad de las personas listadas es de ${obtenerElPromedio(listaDeEdades)} años`;
