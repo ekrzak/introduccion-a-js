@@ -159,10 +159,11 @@ document.querySelector('#ingresar').onclick = () => {
         const listaDeSueldosListaDeNodos = document.querySelectorAll('.sueldos-personas');
         const listaDeSueldos = [];
         for (i = 0; i < listaDeSueldosListaDeNodos.length; i++) {
-            if (listaDeSueldosListaDeNodos[i].value === null || Number(listaDeSueldosListaDeNodos[i].value) < 0) {
+            console.log(listaDeSueldosListaDeNodos[i].value)
+            if (listaDeSueldosListaDeNodos[i].value === '' || Number(listaDeSueldosListaDeNodos[i].value) < 0) {
                 listaDeSueldosListaDeNodos[i].disabled = true;
                 listaDeSueldosListaDeNodos[i].style.backgroundColor = 'pink';
-            } else if (listaDeSueldosListaDeNodos[i].value !== null && Number(listaDeSueldosListaDeNodos[i].value) >= 0) {
+            } else {
                 listaDeSueldos.push(Number(listaDeSueldosListaDeNodos[i].value));
             }     
         }
